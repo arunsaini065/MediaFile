@@ -37,6 +37,7 @@ android {
 
 dependencies {
     api( project(":mediafilecaching") )
+    //implementation("com.github.arunsaini065:MediaFile:1.3.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
