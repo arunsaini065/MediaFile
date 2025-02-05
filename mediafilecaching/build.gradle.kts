@@ -56,7 +56,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.arunsaini065"
             artifactId = "MediaFile"
-            version = "1.0.2"
+            version = "1.0.3"
             afterEvaluate {
                 from(components["release"]) // Use "release" for Android
             }
