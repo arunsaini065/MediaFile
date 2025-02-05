@@ -34,7 +34,6 @@ repositories {
 ```
 
 ## Features
-- **File Caching**: Automatically cache media files to avoid repeated downloads.
 - **Media Handling**: Simplifies the process of dealing with images, videos, and audio files.
 - **Efficient Management**: Helps with organizing and retrieving files based on their type and size.
 - **Offline Support**: Cache files for offline use in your application.
@@ -57,6 +56,3 @@ Current Version: **1.3.0**
 4. Push to the branch (`git push origin feature-branch`).
 5. Open a Pull Request.
 
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
