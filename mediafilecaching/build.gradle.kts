@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
+    id("maven-publish")
+
 }
 
 android {
@@ -31,6 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
 }
 
 dependencies {
@@ -46,4 +49,17 @@ dependencies {
     implementation (libs.androidx.room.ktx)
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
 
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = "com.github.arunsaini065"
+            artifactId = "MediaFile"
+            version = "1.0.2"
+            afterEvaluate {
+                from(components["release"]) // Use "release" for Android
+            }
+        }
+    }
 }
