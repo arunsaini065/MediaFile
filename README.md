@@ -43,31 +43,7 @@ repositories {
 
 ### Caching Media Files
 
-```kotlin
-import com.arunsaini.mediafile.MediaFileManager
 
-// Example to load an image from a URL and cache it
-val mediaFileManager = MediaFileManager(context)
-val cachedImage = mediaFileManager.cacheImage("https://example.com/mediafile.jpg")
-
-// Load a cached media file
-val mediaFile = mediaFileManager.loadMedia("mediafile.jpg")
-```
-
-### Clearing Cache
-
-You can easily clear the cache if needed:
-```kotlin
-mediaFileManager.clearCache()
-```
-
-### Check if Media Exists in Cache
-```kotlin
-val isFileCached = mediaFileManager.isFileCached("mediafile.jpg")
-if (isFileCached) {
-    // Do something
-}
-```
 
 ## Versioning
 
