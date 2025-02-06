@@ -11,7 +11,7 @@ You can include **MediaFile** in your project by adding the following dependency
 Add this to your **`build.gradle`** file:
 ```gradle
 dependencies {
-    implementation "com.github.arunsaini065:MediaFile:1.0.0"
+    implementation "com.github.arunsaini065:MediaFile:1.0.3"
 }
 ```
 
