@@ -40,7 +40,7 @@ android {
 
 dependencies {
     api( project(":mediafilecaching") )
-   // implementation("com.github.arunsaini065:MediaFile:1.0.3")
+   // implementation("com.github.arunsaini065:MediaFile:1.0.4")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
