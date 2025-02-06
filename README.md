@@ -23,7 +23,7 @@ Alternatively, if you prefer to use **Maven**, you can add the following depende
 <dependency>
     <groupId>com.github.arunsaini065</groupId>
     <artifactId>MediaFile</artifactId>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -43,12 +43,185 @@ repositories {
 ## Usage
 
 ### Caching Media Files
+    private val viewModel by lazy { ViewModelProvider(this)[MediaViewModel::class.java] }
+    
+     override fun onResume() {
+        viewModel.starVideoSync()
+        viewModel.starAudioSync()
+        viewModel.starImagesSync()
+        viewModel.starAllMediaFileSync()
+        super.onResume()
 
+    }
+
+       lifecycleScope.launch {
+
+            viewModel.videosFiles.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.videoFile.text = buildString {
+                        append("Video file: ")
+                        append(it.data.size.toString())
+                    }
+
+                   timeUpDate()
+
+                }
+
+            }
+
+        }
+
+        lifecycleScope.launch {
+
+            viewModel.videoFolder.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.videoFolder.text = buildString {
+                        append("Video folder: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+
+        lifecycleScope.launch {
+
+            viewModel.audiosFiles.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.audioFile.text = buildString {
+                        append("Audio file: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+        lifecycleScope.launch {
+
+            viewModel.audioFolder.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.audioFolder.text = buildString {
+                        append("Audio folder: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+
+        lifecycleScope.launch {
+
+            viewModel.imageFiles.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.imageFile.text = buildString {
+                        append("Image file: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+        lifecycleScope.launch {
+
+            viewModel.imageFolder.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.imageFolder.text = buildString {
+                        append("Image file: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+
+
+        lifecycleScope.launch {
+
+            viewModel.allMediaFolder.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.allFolder.text = buildString {
+                        append("All media folder: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+        lifecycleScope.launch {
+
+            viewModel.allMediaFiles.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.allFile.text = buildString {
+                        append("All media file: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
 
 
 ## Versioning
 
-Current Version: **1.3.0**
+Current Version: **1.4.0**
 
 ## Contributing
 
