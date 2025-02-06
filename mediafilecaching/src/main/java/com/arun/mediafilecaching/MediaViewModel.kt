@@ -17,6 +17,12 @@ class MediaViewModel : ViewModel() {
 
     val videoFolder = mediaRepository.videoFolder
 
+    val audioFolder = mediaRepository.audioFolder
+
+    val imageFolder = mediaRepository.imageFolder
+
+    val allMediaFolder = mediaRepository.allMediaFolder
+
     fun starVideoSync() {
 
         viewModelScope.launch {

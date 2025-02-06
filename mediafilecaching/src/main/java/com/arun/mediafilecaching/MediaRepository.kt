@@ -29,6 +29,20 @@ class MediaRepository {
 
     val videoFolder = _videoFolder.asStateFlow()
 
+    private val _audioFolder =  MutableStateFlow<UiState<Map<String,List<MediaFile>>>>(UiState.Loading)
+
+    val audioFolder = _audioFolder.asStateFlow()
+
+
+    private val _imageFolder =  MutableStateFlow<UiState<Map<String,List<MediaFile>>>>(UiState.Loading)
+
+    val imageFolder = _imageFolder.asStateFlow()
+
+
+    private val _allMediaFolder =  MutableStateFlow<UiState<Map<String,List<MediaFile>>>>(UiState.Loading)
+
+    val allMediaFolder = _allMediaFolder.asStateFlow()
+
 
     suspend fun getVideos() = withContext(Dispatchers.Default) {
 
@@ -68,6 +82,8 @@ class MediaRepository {
 
             _audioFiles.value = UiState.Success(videos)
 
+            _audioFolder.value = UiState.Success(videos.groupBy { it.parent })
+
         }
 
     }
@@ -77,6 +93,8 @@ class MediaRepository {
         val context = CourseContext.context ?: return@withContext
 
         val listOfAudios = fetchMediaFiles(MediaType.AUDIO)
+
+        _audioFolder.value = UiState.Success(listOfAudios.groupBy { it.parent })
 
         MediaDatabase.getDatabase(context).mediaDao().clearAllAudios()
 
@@ -93,6 +111,8 @@ class MediaRepository {
 
             _imageFiles.value = UiState.Success(videos)
 
+            _imageFolder.value = UiState.Success(videos.groupBy { it.parent })
+
         }
 
     }
@@ -102,6 +122,8 @@ class MediaRepository {
         val context = CourseContext.context ?: return@withContext
 
         val listOfImages = fetchMediaFiles(MediaType.IMAGE)
+
+        _imageFolder.value = UiState.Success(listOfImages.groupBy { it.parent })
 
         MediaDatabase.getDatabase(context).mediaDao().clearAllImage()
 
@@ -118,6 +140,8 @@ class MediaRepository {
 
             _allMediaFiles.value = UiState.Success(videos)
 
+            _allMediaFolder.value = UiState.Success(videos.groupBy { it.parent })
+
         }
 
     }
@@ -127,6 +151,8 @@ class MediaRepository {
         val context = CourseContext.context ?: return@withContext
 
         val listOf = fetchMediaFiles(MediaType.ALL)
+
+        _allMediaFolder.value = UiState.Success(listOf.groupBy { it.parent })
 
         MediaDatabase.getDatabase(context).mediaDao().clearAll()
 

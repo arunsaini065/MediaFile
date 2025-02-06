@@ -1,11 +1,11 @@
 package com.arun.mediafile
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.arun.mediafile.databinding.ActivityMainBinding
 import com.arun.mediafilecaching.CourseContext
 import com.arun.mediafilecaching.MediaViewModel
 import com.arun.mediafilecaching.UiState
@@ -20,17 +20,16 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProvider(this)[MediaViewModel::class.java] }
 
-    private val startTime by lazy { findViewById<TextView>(R.id.star_time) }
-    private val endTime by lazy { findViewById<TextView>(R.id.end_time) }
-    private val count by lazy { findViewById<TextView>(R.id.count) }
 
-
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onResume() {
-
+        viewModel.starVideoSync()
+        viewModel.starAudioSync()
+        viewModel.starImagesSync()
+        viewModel.starAllMediaFileSync()
         super.onResume()
 
-        viewModel.starVideoSync()
 
     }
 
@@ -45,12 +44,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         CourseContext.bindContext(application)
 
 
-        startTime.text = buildString {
+        binding.startTime.text = buildString {
 
             append("Start: ")
 
@@ -65,15 +64,12 @@ class MainActivity : AppCompatActivity() {
 
                 if (it is UiState.Success) {
 
-                    count.text = it.data.size.toString()
-
-                    endTime.text = buildString {
-
-                        append("End: ")
-
-                        append(convertMillisToTime(System.currentTimeMillis()))
-
+                    binding.videoFile.text = buildString {
+                        append("Video file: ")
+                        append(it.data.size.toString())
                     }
+
+                   timeUpDate()
 
                 }
 
@@ -88,15 +84,12 @@ class MainActivity : AppCompatActivity() {
 
                 if (it is UiState.Success) {
 
-                    count.text = count.text.toString()+"   "+it.data.size.toString()
-
-                    endTime.text = buildString {
-
-                        append("End: ")
-
-                        append(convertMillisToTime(System.currentTimeMillis()))
-
+                    binding.videoFolder.text = buildString {
+                        append("Video folder: ")
+                        append(it.data.size.toString())
                     }
+
+                    timeUpDate()
 
                 }
 
@@ -105,6 +98,141 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        lifecycleScope.launch {
+
+            viewModel.audiosFiles.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.audioFile.text = buildString {
+                        append("Audio file: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+        lifecycleScope.launch {
+
+            viewModel.audioFolder.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.audioFolder.text = buildString {
+                        append("Audio folder: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+
+        lifecycleScope.launch {
+
+            viewModel.imageFiles.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.imageFile.text = buildString {
+                        append("Image file: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+        lifecycleScope.launch {
+
+            viewModel.imageFolder.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.imageFolder.text = buildString {
+                        append("Image file: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+
+
+        lifecycleScope.launch {
+
+            viewModel.allMediaFolder.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.allFolder.text = buildString {
+                        append("All media folder: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+        lifecycleScope.launch {
+
+            viewModel.allMediaFiles.collect{
+
+
+                if (it is UiState.Success) {
+
+                    binding.allFile.text = buildString {
+                        append("All media file: ")
+                        append(it.data.size.toString())
+                    }
+
+                    timeUpDate()
+
+                }
+
+            }
+
+        }
+
+
+    }
+
+    private fun timeUpDate() {
+
+        binding.endTime.text = buildString {
+
+            append("End: ")
+
+            append(convertMillisToTime(System.currentTimeMillis()))
+
+        }
     }
 
 }

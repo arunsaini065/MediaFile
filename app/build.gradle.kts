@@ -26,6 +26,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -36,8 +39,8 @@ android {
 }
 
 dependencies {
-    //api( project(":mediafilecaching") )
-    implementation("com.github.arunsaini065:MediaFile:1.0.3")
+    api( project(":mediafilecaching") )
+   // implementation("com.github.arunsaini065:MediaFile:1.0.3")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
