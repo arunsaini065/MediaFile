@@ -45,18 +45,66 @@ repositories {
 ### Caching Media Files
 ```kotlin
 
+package com.arun.mediafile
+
+import android.os.Bundle
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.arun.mediafile.databinding.ActivityMainBinding
+import com.arun.mediafilecaching.CourseContext
+import com.arun.mediafilecaching.MediaViewModel
+import com.arun.mediafilecaching.UiState
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+
+class MainActivity : AppCompatActivity() {
+
+
     private val viewModel by lazy { ViewModelProvider(this)[MediaViewModel::class.java] }
-    
-     override fun onResume() {
+
+
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
+    override fun onResume() {
         viewModel.starVideoSync()
         viewModel.starAudioSync()
         viewModel.starImagesSync()
         viewModel.starAllMediaFileSync()
         super.onResume()
 
+
     }
 
-       lifecycleScope.launch {
+
+    private fun convertMillisToTime(millis: Long): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault())
+        val date = Date(millis)
+        return sdf.format(date)
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(binding.root)
+
+        CourseContext.bindContext(application)
+
+
+        binding.startTime.text = buildString {
+
+            append("Start: ")
+
+            append(convertMillisToTime(System.currentTimeMillis()))
+
+        }
+
+        lifecycleScope.launch {
 
             viewModel.videosFiles.collect{
 
@@ -68,7 +116,7 @@ repositories {
                         append(it.data.size.toString())
                     }
 
-                   timeUpDate()
+                    timeUpDate()
 
                 }
 
@@ -220,6 +268,21 @@ repositories {
 
         }
 
+
+    }
+
+    private fun timeUpDate() {
+
+        binding.endTime.text = buildString {
+
+            append("End: ")
+
+            append(convertMillisToTime(System.currentTimeMillis()))
+
+        }
+    }
+
+}
 ```
 ## Versioning
 
