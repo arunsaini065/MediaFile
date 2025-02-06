@@ -43,6 +43,8 @@ repositories {
 ## Usage
 
 ### Caching Media Files
+```kotlin
+
     private val viewModel by lazy { ViewModelProvider(this)[MediaViewModel::class.java] }
     
      override fun onResume() {
@@ -218,7 +220,7 @@ repositories {
 
         }
 
-
+```
 ## Versioning
 
 Current Version: **1.4.0**
